@@ -1,0 +1,1203 @@
+/**
+ * 无人机蜂群战术系统 - 左右面板及详情弹窗样式
+ */
+.leaflet-marker-icon.drone-marker,
+.leaflet-marker-icon.target-marker { background: none !important; border: none !important; }
+
+/* 通信网络与协同关系：白色动态虚线 */
+.swarm-comm-line {
+  stroke: #ffffff !important;
+  stroke-dasharray: 4 8;
+  animation: swarm-comm-dash 1.2s linear infinite;
+}
+@keyframes swarm-comm-dash {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+.swarm-comm-tooltip {
+  background: rgba(15,23,42,0.95);
+  border: 1px solid #4b5563;
+  color: #e5e7eb;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  line-height: 1.5;
+}
+/* 通信网络弹窗 - 暗色系适配 */
+.leaflet-popup.swarm-comm-popup-wrap .leaflet-popup-content-wrapper {
+  background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+  border: 1px solid #334155;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(59,130,246,0.1);
+  color: #e2e8f0;
+}
+.leaflet-popup.swarm-comm-popup-wrap .leaflet-popup-tip { background: #1e293b; }
+.swarm-comm-popup {
+  min-width: 260px;
+  padding: 4px 0;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.swarm-comm-popup-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #60a5fa;
+  letter-spacing: 0.04em;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #334155;
+}
+.swarm-comm-popup-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 6px;
+  align-items: baseline;
+}
+.swarm-comm-label {
+  color: #64748b;
+  min-width: 72px;
+  flex-shrink: 0;
+  font-size: 11px;
+}
+.swarm-comm-val {
+  color: #cbd5e1;
+  font-size: 12px;
+  flex: 1;
+  word-break: break-word;
+}
+.swarm-comm-popup-divider {
+  height: 1px;
+  background: #334155;
+  margin: 8px 0;
+}
+
+/* 无人机详情 Popup 影像区域（与通信网络相同风格） */
+.swarm-drone-popup .swarm-drone-popup-imagery { margin-top: 4px; }
+.swarm-drone-popup-imgrow {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 6px;
+  font-size: 11px;
+}
+.swarm-drone-popup-imgrow:last-child { margin-bottom: 0; }
+.swarm-drone-popup-frame {
+  flex: 1;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border: 1px solid #334155;
+  border-radius: 4px;
+  color: #64748b;
+  font-size: 10px;
+}
+.swarm-drone-popup-frame.thermal {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  color: #94a3b8;
+}
+.swarm-drone-popup-frame img {
+  max-width: 100%;
+  max-height: 120px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  border-radius: 2px;
+}
+
+.swarm-layout {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+.swarm-left-panel {
+  width: 260px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  background: rgba(15, 23, 42, 0.98);
+  border-right: 1px solid #334155;
+  overflow: hidden;
+}
+#swarm-device-panel {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+/* 猎鹰编队影像回传面板（在左侧栏旁边，与设备管理同层级） */
+.swarm-imagery-panel {
+  width: 360px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  background: rgba(15, 23, 42, 0.98);
+  border-right: 1px solid #334155;
+  overflow: hidden;
+}
+.swarm-imagery-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  background: rgba(30, 41, 59, 0.9);
+  border-bottom: 1px solid #334155;
+  flex-shrink: 0;
+}
+.swarm-imagery-panel-title {
+  font-size: 13px;
+  font-weight: bold;
+  color: #60a5fa;
+  letter-spacing: 0.04em;
+}
+.swarm-imagery-panel-close {
+  background: transparent;
+  border: none;
+  color: #64748b;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+}
+.swarm-imagery-panel-close:hover { color: #e2e8f0; }
+.swarm-imagery-panel-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  align-content: start;
+  scrollbar-width: thin;
+  scrollbar-color: #475569 transparent;
+}
+.swarm-imagery-panel-body::-webkit-scrollbar { width: 6px; }
+.swarm-imagery-panel-body::-webkit-scrollbar-track { background: transparent; }
+.swarm-imagery-panel-body::-webkit-scrollbar-thumb { background: #475569; border-radius: 3px; }
+.swarm-imagery-drone-card {
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid #334155;
+  border-radius: 6px;
+  overflow: hidden;
+  padding: 8px;
+}
+.swarm-imagery-drone-name {
+  font-size: 11px;
+  font-weight: bold;
+  color: #94a3b8;
+  margin-bottom: 6px;
+}
+.swarm-imagery-img-wrap {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid #334155;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 6px;
+  min-height: 60px;
+}
+.swarm-imagery-img-wrap:last-child { margin-bottom: 0; }
+.swarm-imagery-img-wrap img {
+  width: 100%;
+  height: auto;
+  max-height: 100px;
+  object-fit: contain;
+  display: block;
+}
+.swarm-imagery-img-label {
+  font-size: 9px;
+  color: #64748b;
+  padding: 2px 4px;
+  background: rgba(0,0,0,0.3);
+}
+
+.swarm-main {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+}
+.swarm-right-panel {
+  width: 300px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  background: rgba(15, 23, 42, 0.98);
+  border-left: 1px solid #334155;
+  overflow: hidden;
+}
+
+/* 智能音控 */
+#swarm-voice-control-panel {
+  flex-shrink: 0;
+  border-bottom: 1px solid #334155;
+  background: rgba(30, 41, 59, 0.5);
+}
+.swarm-voice-header {
+  padding: 10px 12px;
+  border-bottom: 1px solid #334155;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.swarm-voice-title {
+  font-size: 13px;
+  font-weight: bold;
+  color: #60a5fa;
+  letter-spacing: 0.04em;
+}
+.swarm-voice-title i { margin-right: 4px; color: #3b82f6; }
+.swarm-voice-body {
+  padding: 12px;
+}
+.swarm-voice-hint {
+  font-size: 11px;
+  color: #64748b;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+.swarm-voice-mic-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+.swarm-voice-mic-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid #334155;
+  background: rgba(59, 130, 246, 0.2);
+  color: #60a5fa;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.swarm-voice-mic-btn:hover {
+  background: rgba(59, 130, 246, 0.35);
+  border-color: #3b82f6;
+}
+.swarm-voice-mic-btn.listening {
+  background: rgba(239, 68, 68, 0.3);
+  border-color: #ef4444;
+  color: #f87171;
+}
+.swarm-voice-pulse { animation: swarm-voice-pulse 0.8s ease-in-out infinite; }
+@keyframes swarm-voice-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.1); }
+}
+.swarm-voice-result {
+  margin-bottom: 10px;
+}
+.swarm-voice-result-label,
+.swarm-voice-parsed-label { font-size: 10px; color: #64748b; margin-bottom: 2px; }
+.swarm-voice-result-text {
+  font-size: 12px;
+  color: #cbd5e1;
+  background: rgba(0,0,0,0.2);
+  border: 1px solid #334155;
+  border-radius: 4px;
+  padding: 6px 8px;
+  min-height: 32px;
+  word-break: break-word;
+}
+.swarm-voice-parsed { margin-bottom: 12px; }
+.swarm-voice-parsed-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  margin-bottom: 4px;
+}
+.swarm-voice-parsed-row:last-child { margin-bottom: 0; }
+.swarm-voice-parsed-row span:last-child {
+  color: #60a5fa;
+  font-weight: 500;
+  max-width: 65%;
+  text-align: right;
+}
+.swarm-voice-dispatch-btn {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  border: 1px solid #60a5fa;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.swarm-voice-dispatch-btn:hover {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+}
+.swarm-voice-toast {
+  position: fixed;
+  bottom: 70px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: rgba(30, 41, 59, 0.98);
+  border: 1px solid #475569;
+  color: #e2e8f0;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  z-index: 10000;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  max-width: 90vw;
+  text-align: center;
+}
+.swarm-voice-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.swarm-voice-toast-success { border-color: #22c55e; }
+.swarm-voice-toast-warn { border-color: #f59e0b; }
+.swarm-voice-toast-info { border-color: #3b82f6; }
+
+#swarm-task-tactic-panel {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* 面板通用 */
+.swarm-panel-header {
+  padding: 12px;
+  border-bottom: 1px solid #334155;
+  flex-shrink: 0;
+}
+.swarm-panel-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #e2e8f0;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+}
+.swarm-panel-accent {
+  width: 3px;
+  height: 14px;
+  border-radius: 2px;
+  background: #3b82f6;
+}
+.swarm-panel-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+.swarm-stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 0;
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(0,0,0,0.2);
+}
+.swarm-stat-val { font-size: 18px; font-weight: 700; line-height: 1.2; }
+.swarm-stat-lbl { font-size: 9px; color: #94a3b8; }
+.swarm-panel-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: #475569 transparent;
+}
+.swarm-panel-body::-webkit-scrollbar { width: 6px; }
+.swarm-panel-body::-webkit-scrollbar-track { background: transparent; }
+.swarm-panel-body::-webkit-scrollbar-thumb { background: #475569; border-radius: 3px; }
+
+/* Tab */
+.swarm-panel-tabs {
+  display: flex;
+  border-bottom: 1px solid #334155;
+  flex-shrink: 0;
+}
+.swarm-tab {
+  flex: 1;
+  padding: 10px;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: #94a3b8;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.swarm-tab:hover { color: #e2e8f0; }
+.swarm-tab.active {
+  color: #e2e8f0;
+  border-bottom-color: #3b82f6;
+  background: rgba(59,130,246,0.08);
+}
+
+/* 无人机行 */
+.swarm-drone-group { margin-bottom: 12px; }
+.swarm-group-title {
+  font-size: 11px;
+  color: #64748b;
+  padding: 4px 8px;
+  margin-bottom: 4px;
+  background: rgba(0,0,0,0.2);
+  border-radius: 4px;
+}
+.swarm-drone-row {
+  padding: 10px;
+  margin-bottom: 6px;
+  background: rgba(0,0,0,0.2);
+  border: 1px solid #334155;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.swarm-drone-row:hover {
+  background: rgba(59,130,246,0.1);
+  border-color: rgba(59,130,246,0.3);
+}
+.swarm-drone-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.swarm-drone-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.swarm-drone-name { font-size: 13px; font-weight: 600; color: #e2e8f0; flex: 1; }
+.swarm-drone-type { font-size: 10px; color: #94a3b8; }
+.swarm-drone-meta { font-size: 11px; color: #94a3b8; margin-bottom: 4px; }
+.swarm-drone-meta span { margin-right: 12px; }
+.swarm-drone-pos { font-size: 10px; color: #64748b; }
+.swarm-pos-label { margin-right: 4px; }
+.swarm-pos-val { font-family: "Share Tech Mono", monospace; color: #94a3b8; }
+.swarm-pos-extra { display: block; margin-top: 2px; font-size: 9px; }
+
+/* 编队行（设备管理列表） */
+.swarm-formation-row {
+  padding: 10px;
+  margin-bottom: 6px;
+  background: rgba(0,0,0,0.2);
+  border: 1px solid #334155;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.swarm-formation-row:hover {
+  background: rgba(59,130,246,0.1);
+  border-color: rgba(59,130,246,0.3);
+}
+.swarm-formation-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.swarm-formation-name { font-size: 13px; font-weight: 600; color: #e2e8f0; flex: 1; }
+.swarm-formation-badge {
+  font-size: 10px;
+  color: #64748b;
+  background: rgba(255,255,255,0.08);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: "Share Tech Mono", monospace;
+}
+.swarm-formation-meta { font-size: 11px; color: #94a3b8; }
+.swarm-formation-count { margin-right: 10px; }
+.swarm-formation-status { color: #64748b; }
+
+/* 编队详情（设备管理内嵌） */
+.swarm-formation-detail {
+  margin-bottom: 12px;
+  background: rgba(30, 41, 59, 0.98);
+  border: 1px solid #475569;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.swarm-formation-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  background: #334155;
+  border-bottom: 1px solid #475569;
+}
+.swarm-fd-title { font-size: 13px; font-weight: 700; color: #e2e8f0; }
+.swarm-formation-detail-close {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 20px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 4px;
+}
+.swarm-formation-detail-close:hover { color: #fff; }
+.swarm-formation-detail-body { padding: 12px; max-height: 320px; overflow-y: auto; }
+.swarm-formation-detail-section { margin-bottom: 12px; }
+.swarm-formation-detail-section:last-child { margin-bottom: 0; }
+.swarm-fd-section-title {
+  font-size: 11px;
+  color: #60a5fa;
+  font-weight: bold;
+  margin-bottom: 8px;
+  letter-spacing: 0.04em;
+}
+.swarm-formation-detail-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 12px;
+}
+.swarm-fd-label { color: #64748b; min-width: 72px; flex-shrink: 0; }
+.swarm-fd-val { color: #cbd5e1; }
+.swarm-formation-drones { display: flex; flex-direction: column; gap: 6px; }
+.swarm-drone-model-row {
+  padding: 8px 10px;
+  background: rgba(0,0,0,0.2);
+  border: 1px solid #334155;
+  border-radius: 4px;
+  font-size: 12px;
+}
+.swarm-dmr-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+.swarm-dmr-name { font-weight: 600; color: #e2e8f0; }
+.swarm-dmr-model { font-size: 11px; color: #60a5fa; }
+.swarm-dmr-meta { font-size: 11px; color: #94a3b8; }
+
+/* 任务行 */
+.swarm-mission-list { display: flex; flex-direction: column; gap: 8px; }
+.swarm-mission-row {
+  padding: 12px;
+  background: rgba(0,0,0,0.2);
+  border: 1px solid #334155;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.swarm-mission-row:hover {
+  background: rgba(59,130,246,0.1);
+  border-color: rgba(59,130,246,0.3);
+}
+.swarm-mission-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.swarm-mission-id { font-size: 10px; color: #64748b; font-family: "Share Tech Mono", monospace; }
+.swarm-mission-status { font-size: 10px; padding: 2px 6px; border-radius: 4px; }
+.swarm-status-active { background: rgba(239,68,68,0.2); color: #ef4444; }
+.swarm-status-done { background: rgba(34,197,94,0.2); color: #22c55e; }
+.swarm-status-pending { background: rgba(245,158,11,0.2); color: #f59e0b; }
+.swarm-mission-name { font-size: 13px; font-weight: 600; color: #e2e8f0; margin-bottom: 4px; }
+.swarm-mission-desc { font-size: 11px; color: #94a3b8; margin-bottom: 8px; line-height: 1.4; }
+.swarm-mission-progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  color: #64748b;
+}
+.swarm-mission-row.expanded { border-color: rgba(59,130,246,0.4); }
+.swarm-mission-detail-inline {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #334155;
+}
+.swarm-mission-detail-inline .swarm-detail-block { margin-bottom: 12px; }
+.swarm-mission-detail-inline .swarm-detail-block:last-child { margin-bottom: 0; }
+.swarm-mission-detail-inline .swarm-detail-label {
+  font-size: 11px;
+  color: #60a5fa;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.swarm-mission-detail-inline .swarm-detail-text,
+.swarm-mission-detail-inline .swarm-detail-objectives {
+  font-size: 12px;
+  color: #cbd5e1;
+  line-height: 1.6;
+  margin: 0;
+}
+.swarm-progress-bar {
+  flex: 1;
+  height: 4px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.swarm-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #60a5fa);
+  border-radius: 2px;
+  transition: width 0.3s;
+}
+
+/* 战术卡片 */
+/* 任务列表下方：战术系统区块 */
+.swarm-tactic-section {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #334155;
+}
+.swarm-tactic-section-title {
+  font-size: 12px;
+  font-weight: bold;
+  color: #94a3b8;
+  margin-bottom: 10px;
+  letter-spacing: 0.04em;
+}
+
+.swarm-tactic-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.swarm-tactic-card {
+  padding: 12px;
+  background: rgba(0,0,0,0.2);
+  border: 1px solid #475569;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.swarm-tactic-card:hover {
+  border-color: #f59e0b;
+  background: rgba(245,158,11,0.08);
+  box-shadow: 0 0 12px rgba(245,158,11,0.15);
+}
+.swarm-tactic-icon { font-size: 24px; margin-bottom: 6px; color: #f59e0b; }
+.swarm-tactic-name { font-size: 12px; font-weight: 600; color: #e2e8f0; margin-bottom: 4px; }
+.swarm-tactic-desc { font-size: 10px; color: #94a3b8; line-height: 1.4; }
+
+/* 战例库 */
+.swarm-panel-tabs-three .swarm-tab { font-size: 11px; padding: 8px 6px; }
+.swarm-case-list { display: flex; flex-direction: column; gap: 10px; }
+.swarm-case-card {
+  padding: 12px;
+  background: rgba(0,0,0,0.2);
+  border: 1px solid #475569;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.swarm-case-card:hover {
+  border-color: #f59e0b;
+  background: rgba(245,158,11,0.06);
+}
+.swarm-case-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.swarm-case-tag {
+  font-size: 10px;
+  color: #f59e0b;
+  background: rgba(245,158,11,0.15);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.swarm-case-year { font-size: 11px; color: #64748b; }
+.swarm-case-name { font-size: 13px; font-weight: 600; color: #e2e8f0; margin-bottom: 4px; }
+.swarm-case-region { font-size: 11px; color: #94a3b8; margin-bottom: 6px; }
+.swarm-case-summary { font-size: 11px; color: #94a3b8; line-height: 1.5; }
+.swarm-empty { text-align: center; color: #64748b; padding: 24px; font-size: 12px; }
+
+/* 详情弹窗 */
+.swarm-detail-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+.swarm-detail-overlay.show { display: flex; }
+.swarm-detail-modal {
+  width: 520px;
+  max-width: 90vw;
+  max-height: 85vh;
+  background: #1e293b;
+  border: 1px solid #475569;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+.swarm-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: #334155;
+  border-bottom: 1px solid #475569;
+  font-weight: bold;
+  color: #fff;
+  flex-shrink: 0;
+}
+.swarm-detail-close {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 22px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 4px;
+}
+.swarm-detail-close:hover { color: #fff; }
+.swarm-detail-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+}
+.swarm-detail-block { margin-bottom: 16px; }
+.swarm-detail-block:last-child { margin-bottom: 0; }
+.swarm-detail-label {
+  font-size: 12px;
+  color: #60a5fa;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+.swarm-detail-text {
+  font-size: 12px;
+  color: #cbd5e1;
+  line-height: 1.7;
+  margin: 0;
+}
+.swarm-detail-objectives,
+.swarm-detail-obj {
+  font-size: 12px;
+  color: #cbd5e1;
+  line-height: 1.6;
+}
+.swarm-detail-obj {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.swarm-obj-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #3b82f6;
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+.swarm-tactic-phases { display: flex; flex-direction: column; gap: 10px; }
+.swarm-tactic-phase {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  background: rgba(0,0,0,0.2);
+  border: 1px solid #475569;
+  border-radius: 6px;
+}
+.swarm-phase-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(245,158,11,0.2);
+  border: 1px solid #f59e0b;
+  color: #f59e0b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+.swarm-phase-step { font-size: 12px; color: #f59e0b; font-weight: 600; margin-bottom: 4px; }
+.swarm-phase-desc { font-size: 11px; color: #94a3b8; line-height: 1.5; }
+.swarm-tactic-advs { display: flex; flex-direction: column; gap: 6px; }
+.swarm-tactic-adv {
+  font-size: 12px;
+  color: #cbd5e1;
+  padding: 8px;
+  background: rgba(34,197,94,0.08);
+  border: 1px solid rgba(34,197,94,0.2);
+  border-radius: 4px;
+  line-height: 1.5;
+}
+
+/* 底栏 */
+.swarm-bottom-nav {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 46px;
+  z-index: 1002;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  background: rgba(15, 23, 42, 0.95);
+  border-top: 1px solid #475569;
+}
+.swarm-bottom-nav-left { display: flex; gap: 6px; }
+.swarm-bottom-btn {
+  background: #334155;
+  color: white;
+  border: 1px solid #475569;
+  border-radius: 4px;
+  padding: 6px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.swarm-bottom-btn:hover { background: #475569; }
+.swarm-bottom-btn.active {
+  background: rgba(59, 130, 246, 0.4);
+  border-color: #3b82f6;
+  color: #60a5fa;
+}
+.swarm-bottom-nav-right { display: flex; align-items: center; gap: 14px; color: #cbd5e1; font-size: 12px; }
+.swarm-bottom-label { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+.swarm-bottom-check { width: 30px; height: 16px; cursor: pointer; accent-color: #22c55e; }
+
+/* 操控系统面板（底栏上方）- 优化排版 */
+.swarm-drone-control-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 46px;
+  height: 300px;
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #0f172a 0%, #1e293b 50%, #1e293b 100%);
+  border-top: 1px solid #334155;
+  border-bottom: 1px solid #475569;
+  box-shadow: 0 -6px 20px rgba(0,0,0,0.5);
+  overflow: hidden;
+}
+.swarm-control-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: rgba(30, 41, 59, 0.95);
+  border-bottom: 1px solid #334155;
+  flex-shrink: 0;
+}
+.swarm-control-header-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.swarm-control-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #e2e8f0;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.swarm-control-title i {
+  color: #60a5fa;
+  font-size: 13px;
+}
+.swarm-control-target {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.swarm-control-target label {
+  font-size: 11px;
+  color: #64748b;
+  white-space: nowrap;
+}
+.swarm-control-target select {
+  padding: 6px 12px;
+  border: 1px solid #475569;
+  border-radius: 6px;
+  background: rgba(15, 23, 42, 0.8);
+  color: #e2e8f0;
+  font-size: 12px;
+  min-width: 150px;
+}
+.swarm-control-target select:focus {
+  outline: none;
+  border-color: #60a5fa;
+}
+.swarm-control-close {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: #64748b;
+  font-size: 22px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.swarm-control-close:hover {
+  color: #e2e8f0;
+  background: rgba(255,255,255,0.06);
+}
+
+.swarm-control-body {
+  flex: 1;
+  display: flex;
+  gap: 16px;
+  padding: 12px 16px;
+  min-height: 0;
+  overflow: hidden;
+}
+.swarm-control-section {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(51, 65, 85, 0.8);
+  border-radius: 8px;
+  padding: 12px 14px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+}
+.swarm-control-fc { min-width: 260px; }
+.swarm-control-payload { min-width: 240px; }
+.swarm-control-section-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(51, 65, 85, 0.6);
+}
+.swarm-control-section-title i {
+  margin-right: 6px;
+  color: #f59e0b;
+}
+.swarm-control-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 20px;
+}
+.swarm-control-grid-fc { gap: 10px 16px; }
+.swarm-control-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.swarm-control-item label:first-child {
+  font-size: 10px;
+  color: #64748b;
+  font-weight: 500;
+}
+.swarm-control-slider-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.swarm-control-slider {
+  flex: 1;
+  min-width: 0;
+  height: 8px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: linear-gradient(90deg, #334155 0%, #475569 100%);
+  border-radius: 4px;
+}
+.swarm-control-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+.swarm-control-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+.swarm-control-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+  cursor: pointer;
+  border: none;
+}
+.swarm-control-val {
+  font-size: 11px;
+  font-weight: 600;
+  color: #60a5fa;
+  min-width: 40px;
+  text-align: right;
+}
+.swarm-control-switch {
+  position: relative;
+  display: inline-block;
+  width: 38px;
+  height: 20px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.swarm-control-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.swarm-control-switch-slider {
+  position: absolute;
+  inset: 0;
+  background: #334155;
+  border-radius: 20px;
+  transition: 0.2s;
+  border: 1px solid #475569;
+}
+.swarm-control-switch-slider::before {
+  content: '';
+  position: absolute;
+  height: 14px;
+  width: 14px;
+  left: 2px;
+  bottom: 2px;
+  background: #94a3b8;
+  border-radius: 50%;
+  transition: 0.2s;
+}
+.swarm-control-switch input:checked + .swarm-control-switch-slider {
+  background: rgba(59, 130, 246, 0.3);
+  border-color: #3b82f6;
+}
+.swarm-control-switch input:checked + .swarm-control-switch-slider::before {
+  transform: translateX(18px);
+  background: #60a5fa;
+}
+
+/* 挂载设备 - 轮盘操控（优化排版） */
+.swarm-control-payload-dial {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+}
+.swarm-dial-row {
+  display: flex;
+  gap: 28px;
+  justify-content: center;
+  align-items: flex-start;
+  flex: 1;
+}
+.swarm-dial-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.swarm-dial-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.swarm-dial-wrap {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, #1e293b 0%, #0f172a 100%);
+  border: 2px solid #334155;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.swarm-dial-wrap:hover {
+  border-color: #475569;
+}
+.swarm-dial-wrap:active {
+  border-color: #60a5fa;
+  box-shadow: 0 0 12px rgba(96, 165, 250, 0.2);
+}
+.swarm-dial-track {
+  position: absolute;
+  inset: 10px;
+  border-radius: 50%;
+  border: 1px dashed rgba(148, 163, 184, 0.25);
+  pointer-events: none;
+}
+.swarm-dial-knob {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  margin: -9px 0 0 -9px;
+  left: 50%;
+  top: 50%;
+  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(96, 165, 250, 0.5), 0 2px 4px rgba(0,0,0,0.3);
+  pointer-events: none;
+  transition: transform 0.05s ease-out;
+}
+.swarm-dial-knob-zoom {
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.5), 0 2px 4px rgba(0,0,0,0.3);
+}
+.swarm-dial-val {
+  font-size: 10px;
+  font-weight: 500;
+  color: #60a5fa;
+  text-align: center;
+  min-height: 14px;
+}
+.swarm-dial-val-zoom { color: #f59e0b; }
+.swarm-dial-zoom {
+  border-color: rgba(245, 158, 11, 0.4);
+}
+.swarm-dial-zoom:hover { border-color: rgba(245, 158, 11, 0.6); }
+.swarm-dial-toggles {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 8px 0 0;
+  border-top: 1px solid rgba(51, 65, 85, 0.6);
+}
+.swarm-dial-toggle-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.swarm-dial-toggle-label {
+  font-size: 11px;
+  color: #94a3b8;
+}
+.swarm-dial-toggles .swarm-control-switch { margin: 0; }
